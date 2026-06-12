@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="css/register.css?v=20260410-1" />
+  </head>
+  <body>
+    <div class="page-wrapper auth-page user-auth-page">
+      <header class="top-header">
+        <div class="top-nav">
+          <a class="logo-link" href="index.html">
+            <span class="logo-icon">+</span>
+            <span>CareBridge</span>
+          </a>
+          <nav class="menu-links">
+            <a href="index.html">Home</a>
+            <a href="doctors.html">Doctors</a>
+            <a href="book.html">Booking</a>
+            <span id="headerUserArea"></span>
+          </nav>
+        </div>
+      </header>
+
+      <main class="page-container auth-page-center">
+        <section class="card auth-form-box register-form-box">
+          <p class="small-tag">Create Account</p>
+          <h2>Register</h2>
+          <p class="muted">You can register as a patient or doctor.</p>
+          <form id="registerForm" class="form-fields">
+            <div class="form-row">
+              <div>
+                <label for="name">Full name</label>
+                <input id="name" placeholder="Enter your name" required />
+              </div>
+              <div>
+                <label for="phone">Phone No.</label>
+                <input
+                  id="phone"
+                  placeholder="Enter your mobile number"
+                  maxlength="10"
+                  inputmode="numeric"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div>
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div>
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Minimum 8 characters"
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <label for="accountRole">Role</label>
+              <select id="accountRole">
+                <option value="PATIENT">Patient</option>
+                <option value="DOCTOR">Doctor</option>
+              </select>
+            </div>
+
+            <div id="doctorExtraFields" class="form-fields">
+              <div class="form-row">
+                <div>
+                  <label for="doctorSpecialtyInput">Specialization</label>
+                  <input
+                    id="doctorSpecialtyInput"
+                    placeholder="Example: Cardiologist"
+                  />
+                </div>
+                <div>
+                  <label for="doctorExperienceInput">Experience</label>
+                  <input
+                    type="number"
+                    min="1"
+                    id="doctorExperienceInput"
+                    placeholder="Years of experience"
+                  />
+                </div>
+              </div>
+              <div>
+                <label for="doctorAvailableDaysInput">Available days</label>
+                <input
+                  id="doctorAvailableDaysInput"
+                  placeholder="Example: Mon, Wed, Fri"
+                />
+              </div>
+              <div>
+                <label for="doctorBioInput">Short profile</label>
+                <textarea
+                  id="doctorBioInput"
+                  placeholder="Write a short description about the doctor"
+                ></textarea>
+              </div>
+            </div>
+
+            <button type="submit">Register</button>
+          </form>
+          <div id="registerStatus" class="message"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="registerOtpPopup" class="popup-backdrop">
+      <section class="auth-form-box popup-card">
+        <div class="popup-top-row">
+          <div>
+            <h3>Email OTP Verification</h3>
+            <p class="muted">Enter the OTP received on your email to complete registration.</p>
+          </div>
+          <button type="button" id="closeRegisterOtpButton" class="small-action-button">Close</button>
+        </div>
+        <form id="registerOtpForm" class="form-fields">
+          <div>
+            <label for="registerOtpEmail">Email</label>
+            <input id="registerOtpEmail" readonly />
+          </div>
+          <div>
+            <label for="registerOtpCode">OTP</label>
+            <input id="registerOtpCode" placeholder="Enter 6-digit OTP" maxlength="6" required />
+          </div>
+          <div class="popup-button-row">
+            <button type="submit">Verify OTP</button>
+            <button type="button" id="cancelRegisterOtpButton" class="small-action-button">Cancel</button>
+          </div>
+        </form>
+        <div id="registerOtpStatus" class="message"></div>
+      </section>
+    </div>
+
+    <script src="js/api.js?v=20260410-1"></script>
+    <script src="js/register.js?v=20260409-1"></script>
+  </body>
+</html>

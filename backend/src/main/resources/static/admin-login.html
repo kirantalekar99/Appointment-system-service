@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="css/admin-login.css?v=20260408-1" />
+  </head>
+  <body>
+    <div class="page-wrapper auth-page admin-auth-page">
+      <header class="top-header">
+        <div class="top-nav">
+          <a class="logo-link" href="index.html">
+            <span class="logo-icon">+</span>
+            <span>CareBridge</span>
+          </a>
+          <nav class="menu-links">
+            <a href="index.html">Home</a>
+            <a href="doctors.html">Doctors</a>
+            <a href="book.html">Booking</a>
+            <span id="headerUserArea"></span>
+          </nav>
+        </div>
+      </header>
+
+      <main class="page-container auth-page-center">
+        <section class="card auth-form-box admin-login-card">
+          <p class="small-tag">Admin Login</p>
+          <h2>Secure Sign in</h2>
+          <form id="loginForm" class="form-fields" data-login-mode="ADMIN">
+            <div>
+              <label for="loginIdentifier">Email or mobile number</label>
+              <input
+                id="loginIdentifier"
+                placeholder="Enter admin email or mobile number"
+                required
+              />
+            </div>
+            <div>
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                required
+              />
+            </div>
+            <button type="submit" id="loginButton">Admin Login</button>
+          </form>
+          <a href="#" id="forgotPasswordLink" class="forgot-password-link"
+            >Forgot Password?</a
+          >
+          <div id="loginStatus" class="message"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="forgotPasswordPopup" class="popup-backdrop">
+      <section class="auth-form-box popup-card">
+        <div class="popup-top-row">
+          <h3>Reset Password</h3>
+          <button
+            type="button"
+            id="closeForgotPasswordButton"
+            class="small-action-button"
+          >
+            Close
+          </button>
+        </div>
+        <form id="forgotPasswordForm" class="form-fields">
+          <div>
+            <label for="forgotIdentifier">Registered email or mobile number</label>
+            <input
+              id="forgotIdentifier"
+              placeholder="Enter your registered email or mobile number"
+              required
+            />
+          </div>
+          <div>
+            <label for="forgotNewPassword">New password</label>
+            <input
+              type="password"
+              id="forgotNewPassword"
+              placeholder="Enter new password"
+              required
+            />
+          </div>
+          <div>
+            <label for="forgotConfirmPassword">Confirm new password</label>
+            <input
+              type="password"
+              id="forgotConfirmPassword"
+              placeholder="Confirm new password"
+              required
+            />
+          </div>
+          <div class="popup-button-row">
+            <button type="submit">Update Password</button>
+            <button
+              type="button"
+              id="cancelForgotPasswordButton"
+              class="small-action-button"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+        <div id="forgotPasswordStatus" class="message"></div>
+      </section>
+    </div>
+
+    <script src="js/api.js?v=20260406-3"></script>
+    <script src="js/login.js?v=20260408-1"></script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CareBridge</title>
+    <link rel="stylesheet" href="css/index.css?v=20260410-1" />
+  </head>
+  <body>
+    <script src="js/api.js?v=20260410-1"></script>
+    <script src="js/home.js?v=20260410-1"></script>
+
+    <div class="page-wrapper">
+      <header class="top-header">
+        <div class="top-nav">
+          <a class="logo-link" href="index.html">
+            <span class="logo-icon">+</span>
+            <span>CareBridge</span>
+          </a>
+          <nav class="menu-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="doctors.html">Doctors</a>
+            <a href="book.html">Booking</a>
+            <span id="headerUserArea"></span>
+          </nav>
+        </div>
+      </header>
+
+      <main class="page-container">
+        <section class="home-hero">
+          <div class="home-hero-box">
+            <span id="homeHeroTag" class="small-tag"
+              >Simple healthcare access for every patient</span
+            >
+            <h1 id="homeHeroTitle">Book the right doctor in a few steps.</h1>
+            <p id="homeHeroText">
+              This appointment system helps patients find the right doctors,
+              choose an available slot, and manage visits without confusion. The
+              interface is simple, readable, and designed to keep important
+              health information easy to understand.
+            </p>
+            <div class="hero-buttons" id="homeHeroButtons">
+              <a id="primaryHeroButton" class="btn btn-primary" href="user-login.html">User Login</a>
+              <a id="secondaryHeroButton" class="btn btn-secondary" href="doctors.html"
+                >View All Doctors</a
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="stats-row">
+          <article class="stat-card">
+            <h3 id="allDoctorCount">0</h3>
+            <p>All Doctors</p>
+          </article>
+          <article class="stat-card">
+            <h3 id="specialtyCountDisplay">0</h3>
+            <p>Specialities covered</p>
+          </article>
+          <article class="stat-card">
+            <h3>24/7</h3>
+            <p>Easy online access for patients</p>
+          </article>
+        </section>
+
+        <section class="page-section" id="availableDoctorsSection">
+          <div class="section-top">
+            <div>
+              <h2 class="section-heading">Available Doctors Today</h2>
+            </div>
+          </div>
+          <div id="todayDoctorList" class="card-list"></div>
+        </section>
+
+        <section class="page-section">
+          <div class="info-grid info-grid-wide">
+            <article class="info-box">
+              <h3>Before your appointment</h3>
+              <ul>
+                <li>Keep your previous medical reports ready.</li>
+                <li>Write your symptoms clearly before booking.</li>
+                <li>Arrive a few minutes early for a smooth visit.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="page-footer">
+        Copyright 2026 CareBridge | All Rights Reserved.
+      </footer>
+    </div>
+
+    <template id="todayDoctorCardTemplate">
+      <article class="card doctor-box">
+        <div>
+          <h3 data-field="name"></h3>
+          <p class="muted" data-field="specialization"></p>
+        </div>
+        <div>
+          <a class="btn btn-primary" data-field="link" href="book.html"
+            >Book Appointment</a
+          >
+        </div>
+      </article>
+    </template>
+
+    <template id="todayDoctorEmptyTemplate">
+      <div class="empty-box">No doctors are available today.</div>
+    </template>
+  </body>
+</html>

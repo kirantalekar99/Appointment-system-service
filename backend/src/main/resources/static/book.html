@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Appointment</title>
+    <link rel="stylesheet" href="css/book.css?v=20260410-1" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header class="top-header">
+        <div class="top-nav">
+          <a class="logo-link" href="index.html">
+            <span class="logo-icon">+</span>
+            <span>CareBridge</span>
+          </a>
+          <nav class="menu-links">
+            <a href="index.html">Home</a>
+            <a href="doctors.html">Doctors</a>
+            <a href="book.html" class="active">Booking</a>
+            <span id="headerUserArea"></span>
+          </nav>
+        </div>
+      </header>
+
+      <main class="page-container two-column-form">
+        <section class="card" id="bookingLeftCard">
+          <h2 id="bookingMainTitle">Book appointment</h2>
+          <p id="bookingMainText" class="muted"></p>
+          <form id="appointmentForm" class="form-fields">
+            <div>
+              <label for="doctorSelect">Select doctor</label>
+              <select id="doctorSelect" required></select>
+            </div>
+            <div class="form-row">
+              <div>
+                <label for="visitDate">Appointment date</label>
+                <input type="date" id="visitDate" required />
+              </div>
+              <div>
+                <label for="visitTime">Time slot</label>
+                <input
+                  id="visitTime"
+                  placeholder="Ex: 11:00 AM - 11:30 AM"
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <label for="visitReason">Symptoms / Reason for visit</label>
+              <textarea
+                id="visitReason"
+                placeholder="eason for consultation"
+              ></textarea>
+            </div>
+            <button type="submit">Confirm Booking</button>
+          </form>
+          <div id="bookingMessage" class="message"></div>
+        </section>
+
+        <section class="side-box">
+          <h2 id="appointmentListTitle">Your appointments</h2>
+          <p id="appointmentListText" class="muted"></p>
+          <div id="myAppointmentList" class="appointment-list-area"></div>
+        </section>
+      </main>
+    </div>
+
+    <template id="myAppointmentCardTemplate">
+      <article class="card">
+        <h3 data-field="doctorName"></h3>
+        <p class="muted" data-field="specialization"></p>
+        <div class="doctor-info-row">
+          <span class="pill" data-field="date"></span>
+          <span class="pill" data-field="time"></span>
+          <span class="pill" data-field="status"></span>
+        </div>
+        <p><strong>Symptoms:</strong> <span data-field="symptoms"></span></p>
+        <div class="doctor-action-row">
+          <button type="button" class="doctor-status-button" data-field="rescheduleButton">Reschedule</button>
+          <button type="button" class="patient-cancel-button" data-field="cancelButton">Cancel</button>
+        </div>
+      </article>
+    </template>
+
+    <template id="doctorAppointmentCardTemplate">
+      <article class="card">
+        <h3 data-field="patientName"></h3>
+        <p class="muted">Doctor: <span data-field="doctorName"></span></p>
+        <div class="doctor-info-row">
+          <span class="pill" data-field="date"></span>
+          <span class="pill" data-field="time"></span>
+          <span class="pill" data-field="status"></span>
+        </div>
+        <p><strong>Symptoms:</strong> <span data-field="symptoms"></span></p>
+        <div class="doctor-action-row">
+          <select data-field="statusSelect">
+            <option value="BOOKED">Accept / Booked</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
+          <button type="button" class="doctor-status-button" data-field="updateButton">Update Status</button>
+        </div>
+      </article>
+    </template>
+
+    <template id="appointmentEmptyMessageTemplate">
+      <div class="empty-box" data-field="message"></div>
+    </template>
+
+    <div id="reschedulePopup" class="popup-backdrop">
+      <section class="card popup-card">
+        <div class="popup-top-row">
+          <div>
+            <h3>Reschedule appointment</h3>
+            <p class="muted">Update the date, time, or symptoms for your appointment.</p>
+          </div>
+          <button type="button" id="closeRescheduleButton" class="patient-cancel-button">Close</button>
+        </div>
+        <form id="rescheduleForm" class="form-fields">
+          <input type="hidden" id="rescheduleAppointmentId" />
+          <div class="form-row">
+            <div>
+              <label for="rescheduleDate">Appointment date</label>
+              <input type="date" id="rescheduleDate" required />
+            </div>
+            <div>
+              <label for="rescheduleTime">Time slot</label>
+              <input id="rescheduleTime" required />
+            </div>
+          </div>
+          <div>
+            <label for="rescheduleSymptoms">Symptoms / Reason</label>
+            <textarea id="rescheduleSymptoms"></textarea>
+          </div>
+          <div class="doctor-action-row">
+            <button type="submit" class="doctor-status-button">Save Changes</button>
+            <button type="button" id="cancelRescheduleButton" class="patient-cancel-button">Cancel</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <script src="js/api.js?v=20260410-1"></script>
+    <script src="js/book.js?v=20260410-1"></script>
+  </body>
+</html>

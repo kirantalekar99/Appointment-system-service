@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/admin.css?v=20260406-6" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header class="top-header">
+        <div class="top-nav">
+          <a class="logo-link" href="index.html">
+            <span class="logo-icon">+</span>
+            <span>CareBridge</span>
+          </a>
+          <nav class="menu-links">
+            <a href="index.html">Home</a>
+            <a href="doctors.html">Doctors</a>
+            <a href="book.html">Booking</a>
+            <a href="admin.html" class="">Admin</a>
+            <span id="headerUserArea"></span>
+          </nav>
+        </div>
+      </header>
+
+      <main class="page-container admin-page">
+        <div id="adminStatusMessage" class="message"></div>
+
+        <section class="page-section">
+          <div class="section-top">
+            <div>
+              <h2 class="section-heading">Admin overview</h2>
+              <p>Manage doctors, appointments, and notifications from here.</p>
+            </div>
+            <button
+              type="button"
+              id="showAdminPasswordPopupButton"
+              class="btn btn-secondary"
+            >
+              Password Change
+            </button>
+          </div>
+
+          <div class="stats-row admin-stats-row">
+            <article class="stat-card">
+              <h3 id="doctorTotalCount">0</h3>
+              <p>Total Doctors</p>
+            </article>
+            <article class="stat-card">
+              <h3 id="patientTotalCount">0</h3>
+              <p>Total Patients</p>
+            </article>
+            <article class="stat-card">
+              <h3 id="appointmentTotalCount">0</h3>
+              <p>Total Appointments</p>
+            </article>
+            <article class="stat-card">
+              <h3 id="bookedCount">0</h3>
+              <p>Booked</p>
+            </article>
+            <article class="stat-card">
+              <h3 id="completedCount">0</h3>
+              <p>Completed</p>
+            </article>
+            <article class="stat-card">
+              <h3 id="cancelledCount">0</h3>
+              <p>Cancelled</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="page-section">
+          <section class="card">
+            <div class="section-top">
+              <div>
+                <h2 class="section-heading">Manage doctors</h2>
+                <p>Doctors added automatically in the doctor section.</p>
+              </div>
+              <button
+                type="button"
+                id="showAddDoctorButton"
+                class="btn btn-primary"
+              >
+                Add Doctor
+              </button>
+            </div>
+            <div id="doctorStatusMessage" class="message"></div>
+            <div id="doctorManageList" class="appointment-list-area"></div>
+          </section>
+        </section>
+
+        <section class="page-section">
+          <div class="section-top">
+            <div>
+              <h2 class="section-heading">Manage appointments</h2>
+              <p></p>
+            </div>
+          </div>
+          <div id="appointmentStatusMessage" class="message"></div>
+          <div id="appointmentManageList" class="appointment-list-area"></div>
+        </section>
+
+        <section class="page-section admin-two-column">
+          <section class="card">
+            <h2>Notifications control</h2>
+            <form id="notificationSendForm" class="form-fields">
+              <div class="form-row">
+                <div>
+                  <label for="notificationType">Channel</label>
+                  <select id="notificationType">
+                    <option value="SMS">SMS</option>
+                    <option value="WHATSAPP">WhatsApp</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="notificationAudience">Recipient group</label>
+                  <select id="notificationAudience">
+                    <option value="ALL_USERS">All Users</option>
+                    <option value="PATIENTS">Patients</option>
+                    <option value="DOCTORS">Doctors</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label for="notificationTarget">Recipient</label>
+                <input
+                  id="notificationTarget"
+                  placeholder="Email or phone for custom messages"
+                />
+              </div>
+              <div>
+                <label for="notificationText">Message</label>
+                <textarea id="notificationText" required></textarea>
+              </div>
+              <button type="submit">Send Notification</button>
+            </form>
+            <div id="notificationStatusMessage" class="message"></div>
+          </section>
+
+          <section class="card">
+            <div class="section-top">
+              <div>
+                <h2 class="section-heading">Notification history</h2>
+                <p>Track manually message.</p>
+              </div>
+            </div>
+            <div id="historyStatusMessage" class="message"></div>
+            <div
+              id="notificationHistoryList"
+              class="appointment-list-area"
+            ></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div id="doctorFormPopup" class="popup-backdrop">
+      <section class="card popup-card">
+        <div class="section-top popup-header">
+          <div>
+            <h2 id="doctorFormTitle" class="section-heading">Add New Doctor</h2>
+            <p id="doctorFormText" class="muted">
+              Fill the form to create a new doctor profile.
+            </p>
+          </div>
+          <button
+            type="button"
+            id="closeDoctorPopupButton"
+            class="btn btn-secondary"
+          >
+            Close
+          </button>
+        </div>
+
+        <form id="doctorDetailsForm" class="form-fields">
+          <div class="form-row">
+            <div>
+              <label for="doctorFullName">Doctor name</label>
+              <input id="doctorFullName" required />
+            </div>
+            <div>
+              <label for="doctorPhoneNumber">Phone</label>
+              <input
+                id="doctorPhoneNumber"
+                maxlength="10"
+                inputmode="numeric"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div>
+              <label for="doctorEmailAddress">Email</label>
+              <input id="doctorEmailAddress" type="email" required />
+            </div>
+            <div>
+              <label for="doctorYearsExperience">Experience</label>
+              <input
+                id="doctorYearsExperience"
+                type="number"
+                min="1"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div>
+              <label for="doctorSpecialty">Specialization</label>
+              <input id="doctorSpecialty" required />
+            </div>
+            <div>
+              <label for="doctorWorkDays">Available days</label>
+              <input
+                id="doctorWorkDays"
+                placeholder="Mon, Tue, Wed, Thu, Fri"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div>
+              <label for="doctorWorkTime">Available time</label>
+              <input
+                id="doctorWorkTime"
+                placeholder="10:00 AM - 4:00 PM"
+                required
+              />
+            </div>
+          </div>
+          <div class="button-row">
+            <button id="saveDoctorButton" type="submit">Add Doctor</button>
+            <button
+              id="cancelDoctorButton"
+              type="button"
+              class="btn btn-secondary"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <div id="adminPasswordPopup" class="popup-backdrop">
+      <section class="card popup-card">
+        <div class="section-top popup-header">
+          <div>
+            <h2 class="section-heading">Admin account settings</h2>
+          </div>
+          <button
+            type="button"
+            id="closeAdminPasswordPopupButton"
+            class="btn btn-secondary"
+          >
+            Close
+          </button>
+        </div>
+
+        <form id="adminAccountForm" class="form-fields">
+          <div class="form-row">
+            <div>
+              <label for="adminLoginEmail">Admin email</label>
+              <input
+                id="adminLoginEmail"
+                type="email"
+                required
+                placeholder="Enter admin email"
+              />
+            </div>
+            <div>
+              <label for="adminLoginPassword">New password</label>
+              <input
+                id="adminLoginPassword"
+                type="password"
+                placeholder="Enter new password"
+              />
+            </div>
+          </div>
+          <div class="button-row">
+            <button type="submit" class="btn btn-primary">Update Admin</button>
+            <button
+              type="button"
+              id="cancelAdminPasswordButton"
+              class="btn btn-secondary"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+        <div id="adminAccountMessage" class="message"></div>
+      </section>
+    </div>
+
+    <template id="doctorManageCardTemplate">
+      <article class="card admin-item-box" data-field="doctorCard">
+        <div>
+          <h3 data-field="name"></h3>
+          <p class="muted" data-field="specialization"></p>
+          <div class="doctor-info-row">
+            <span class="pill" data-field="experience"></span>
+            <span class="pill" data-field="days"></span>
+            <span class="pill" data-field="time"></span>
+          </div>
+          <p data-field="bio"></p>
+          <p class="muted" data-field="email"></p>
+        </div>
+        <div class="button-row">
+          <button type="button" class="btn btn-secondary" data-action="edit">
+            Edit
+          </button>
+          <button type="button" class="btn btn-danger" data-action="delete">
+            Delete
+          </button>
+        </div>
+      </article>
+    </template>
+
+    <template id="appointmentManageCardTemplate">
+      <article class="card admin-item-box">
+        <div>
+          <h3 data-field="doctorName"></h3>
+          <p class="muted"><span data-field="patientLine"></span></p>
+          <div class="doctor-info-row">
+            <span class="pill" data-field="date"></span>
+            <span class="pill" data-field="time"></span>
+            <span class="pill" data-field="status"></span>
+          </div>
+          <p data-field="symptoms"></p>
+        </div>
+        <div class="button-column">
+          <select data-field="statusSelect">
+            <option value="BOOKED">BOOKED</option>
+            <option value="COMPLETED">COMPLETED</option>
+            <option value="CANCELLED">CANCELLED</option>
+          </select>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-action="save-status"
+          >
+            Update Status
+          </button>
+          <button type="button" class="btn btn-danger" data-action="cancel">
+            Cancel
+          </button>
+        </div>
+      </article>
+    </template>
+
+    <template id="notificationHistoryCardTemplate">
+      <article class="card admin-item-box" data-field="notificationCard">
+        <div>
+          <h3 data-field="channel"></h3>
+          <p class="muted">To: <span data-field="recipient"></span></p>
+          <p data-field="message"></p>
+        </div>
+        <div class="button-column">
+          <div class="pill" data-field="createdAt"></div>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-action="delete-notification"
+          >
+            Delete
+          </button>
+        </div>
+      </article>
+    </template>
+
+    <template id="emptyMessageTemplate">
+      <div class="empty-box" data-field="message"></div>
+    </template>
+
+    <script src="js/api.js?v=20260406-3"></script>
+    <script src="js/admin.js?v=20260406-3"></script>
+  </body>
+</html>

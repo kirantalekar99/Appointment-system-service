@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctors</title>
+    <link rel="stylesheet" href="css/doctors.css?v=20260410-1" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header class="top-header">
+        <div class="top-nav">
+          <a class="logo-link" href="index.html">
+            <span class="logo-icon">+</span>
+            <span>CareBridge</span>
+          </a>
+          <nav class="menu-links">
+            <a href="index.html">Home</a>
+            <a href="doctors.html" class="active">Doctors</a>
+            <a href="book.html">Booking</a>
+            <span id="headerUserArea"></span>
+          </nav>
+        </div>
+      </header>
+
+      <main class="page-container page-section">
+        <div class="section-top">
+          <div>
+            <h2 class="section-heading">Find your doctor</h2>
+            <p>
+              Choose from available doctors and book a consultation with clear
+              timing details.
+            </p>
+          </div>
+        </div>
+        <div id="allDoctorList" class="doctor-list-area"></div>
+      </main>
+    </div>
+
+    <template id="allDoctorCardTemplate">
+      <article class="card doctor-box">
+        <div>
+          <h3 data-field="name"></h3>
+          <p class="muted" data-field="specialization"></p>
+          <div class="doctor-info-row">
+            <span class="pill" data-field="experience"></span>
+            <span class="pill" data-field="days"></span>
+            <span class="pill" data-field="time"></span>
+          </div>
+          <p data-field="bio"></p>
+        </div>
+        <div>
+          <a class="btn btn-primary" data-field="link" href="book.html"
+            >Book Appointment</a
+          >
+        </div>
+      </article>
+    </template>
+
+    <template id="allDoctorEmptyTemplate">
+      <div class="empty-box">No doctors available right now.</div>
+    </template>
+
+    <template id="allDoctorErrorTemplate">
+      <div class="empty-box" data-field="message"></div>
+    </template>
+
+    <script src="js/api.js?v=20260410-1"></script>
+    <script src="js/doctors.js?v=20260410-1"></script>
+  </body>
+</html>

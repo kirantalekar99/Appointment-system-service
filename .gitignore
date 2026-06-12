@@ -1,0 +1,16 @@
+.idea/
+.vscode/
+
+target/
+backend/target/
+
+backend/.m2/
+
+.env
+*.env
+backend/src/main/resources/application.properties
+
+*.class
+*.jar
+*.war
+*.log

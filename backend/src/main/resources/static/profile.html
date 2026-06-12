@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link rel="stylesheet" href="css/profile.css?v=20260410-1" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header class="top-header">
+        <div class="top-nav">
+          <a class="logo-link" href="index.html">
+            <span class="logo-icon">+</span>
+            <span>CareBridge</span>
+          </a>
+          <nav class="menu-links">
+            <a href="index.html">Home</a>
+            <a href="doctors.html">Doctors</a>
+            <a href="book.html">Booking</a>
+            <span id="headerUserArea"></span>
+          </nav>
+        </div>
+      </header>
+
+      <main class="page-container profile-layout">
+        <section class="profile-card">
+          <p class="small-tag">Profile</p>
+          <h2 id="profileTitle">Your profile</h2>
+          <p id="profileSubtitle" class="muted">Update your account information here.</p>
+
+          <form id="profileForm" class="form-fields">
+            <div class="form-row">
+              <div>
+                <label for="profileName">Full name</label>
+                <input id="profileName" required />
+              </div>
+              <div>
+                <label for="profilePhone">Phone number</label>
+                <input id="profilePhone" maxlength="10" inputmode="numeric" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div>
+                <label for="profileEmail">Email</label>
+                <input id="profileEmail" type="email" required />
+              </div>
+              <div>
+                <label for="profilePassword">New password</label>
+                <input id="profilePassword" type="password" placeholder="Leave blank to keep current password" />
+              </div>
+            </div>
+
+            <div id="doctorProfileFields" class="form-fields" hidden>
+              <div class="form-row">
+                <div>
+                  <label for="profileSpecialization">Specialization</label>
+                  <input id="profileSpecialization" />
+                </div>
+                <div>
+                  <label for="profileExperience">Experience</label>
+                  <input id="profileExperience" type="number" min="1" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div>
+                  <label for="profileAvailableDays">Available days</label>
+                  <input id="profileAvailableDays" />
+                </div>
+                <div>
+                  <label for="profileAvailableTime">Available time</label>
+                  <input id="profileAvailableTime" />
+                </div>
+              </div>
+              <div>
+                <label for="profileBio">Bio</label>
+                <textarea id="profileBio"></textarea>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button type="submit" class="save-button">Save Profile</button>
+              <a href="index.html" class="cancel-link">Back to Home</a>
+            </div>
+          </form>
+          <div id="profileMessage" class="message"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="js/api.js?v=20260410-1"></script>
+    <script src="js/profile.js?v=20260410-1"></script>
+  </body>
+</html>
