@@ -15,7 +15,6 @@ import com.appointmentsystem.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.UUID;
@@ -157,7 +156,6 @@ public class AuthService {
         return mapProfile(user, doctorProfileRepository.findByUserId(userId).orElse(null));
     }
 
-    @Transactional
     public AuthResponse updateProfile(Long userId, ProfileUpdateRequest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));

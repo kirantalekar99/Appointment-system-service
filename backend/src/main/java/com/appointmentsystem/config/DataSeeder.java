@@ -66,7 +66,10 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private void cleanupDuplicateDoctors(String email) {
-        List<DoctorProfile> profiles = new ArrayList<>(doctorProfileRepository.findAllByUser_Email(email));
+        List<Long> matchingUserIds = userRepository.findAllByEmail(email).stream()
+                .map(User::getId)
+                .toList();
+        List<DoctorProfile> profiles = new ArrayList<>(doctorProfileRepository.findAllByUserIdIn(matchingUserIds));
         if (profiles.size() > 1) {
             DoctorProfile keepProfile = profiles.remove(0);
             for (DoctorProfile profile : profiles) {
@@ -82,7 +85,7 @@ public class DataSeeder implements CommandLineRunner {
         if (users.size() > 1) {
             User keepUser = profiles.isEmpty()
                     ? users.get(0)
-                    : doctorProfileRepository.findAllByUser_Email(email).stream()
+                    : doctorProfileRepository.findAllByUserIdIn(users.stream().map(User::getId).toList()).stream()
                     .findFirst()
                     .map(DoctorProfile::getUser)
                     .orElse(users.get(0));

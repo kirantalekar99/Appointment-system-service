@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: appointment-system-service
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: SERVER_PORT
+        value: 10000
+      - key: SERVER_FORWARD_HEADERS_STRATEGY
+        value: framework
+      - key: SPRING_DATA_MONGODB_URI
+        sync: false
+      - key: SPRING_DATA_MONGODB_DATABASE
+        value: appointment_db
+      - key: SPRING_DATA_MONGODB_AUTO_INDEX_CREATION
+        value: true
+      - key: SPRING_JACKSON_SERIALIZATION_WRITE_DATES_AS_TIMESTAMPS
+        value: false
+      - key: SERVER_ERROR_INCLUDE_MESSAGE
+        value: always
+      - key: MAIL_BREVO_API_KEY
+        sync: false
+      - key: APP_MAIL_FROM
+        sync: false
+      - key: APP_MAIL_SENDER_NAME
+        value: CareBridge
+      - key: MAIL_BREVO_BASE_URL
+        value: https://api.brevo.com
+      - key: APP_OTP_EXPIRY_MINUTES
+        value: 10

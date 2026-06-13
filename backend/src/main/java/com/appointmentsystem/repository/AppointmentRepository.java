@@ -2,17 +2,17 @@ package com.appointmentsystem.repository;
 
 import com.appointmentsystem.model.Appointment;
 import com.appointmentsystem.model.AppointmentStatus;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-    List<Appointment> findByPatient_IdOrderByAppointmentDateAsc(Long patientId);
-    List<Appointment> findByDoctor_IdOrderByAppointmentDateAsc(Long doctorId);
-    List<Appointment> findByDoctor_Id(Long doctorId);
+public interface AppointmentRepository extends MongoRepository<Appointment, Long> {
+    List<Appointment> findByPatientIdOrderByAppointmentDateAsc(Long patientId);
+    List<Appointment> findByDoctorIdOrderByAppointmentDateAsc(Long doctorId);
+    List<Appointment> findByDoctorId(Long doctorId);
     List<Appointment> findAllByOrderByAppointmentDateAsc();
-    boolean existsByDoctor_IdAndAppointmentDateAndTimeSlot(Long doctorId, LocalDate appointmentDate, String timeSlot);
-    boolean existsByDoctor_IdAndStatusIn(Long doctorId, List<AppointmentStatus> statuses);
+    boolean existsByDoctorIdAndAppointmentDateAndTimeSlot(Long doctorId, LocalDate appointmentDate, String timeSlot);
+    boolean existsByDoctorIdAndStatusIn(Long doctorId, List<AppointmentStatus> statuses);
     long countByStatus(AppointmentStatus status);
 }

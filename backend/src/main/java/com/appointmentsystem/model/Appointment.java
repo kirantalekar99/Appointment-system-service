@@ -1,54 +1,41 @@
 package com.appointmentsystem.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "appointments")
-public class Appointment {
+@Document(collection = "appointments")
+public class Appointment implements SequencedDocument {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "doctor_id", nullable = false)
+    @Indexed
+    private Long doctorId;
+
+    @DBRef
     private DoctorProfile doctor;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "patient_id", nullable = false)
+    @Indexed
+    private Long patientId;
+
+    @DBRef
     private User patient;
 
-    @Column(nullable = false)
     private LocalDate appointmentDate;
 
-    @Column(name = "appointment_time", nullable = false)
     private String timeSlot;
 
-    @Column(name = "time_slot", nullable = false)
     private String legacyTimeSlot;
 
-    @Column(name = "reason", length = 600)
     private String symptoms;
 
-    @Column(name = "symptoms", length = 600)
     private String legacySymptoms;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Indexed
     private AppointmentStatus status;
 
     public Long getId() {
@@ -59,12 +46,29 @@ public class Appointment {
         this.id = id;
     }
 
+    public Long getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
+    }
+
     public DoctorProfile getDoctor() {
         return doctor;
     }
 
     public void setDoctor(DoctorProfile doctor) {
         this.doctor = doctor;
+        this.doctorId = doctor == null ? null : doctor.getId();
+    }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 
     public User getPatient() {
@@ -73,6 +77,7 @@ public class Appointment {
 
     public void setPatient(User patient) {
         this.patient = patient;
+        this.patientId = patient == null ? null : patient.getId();
     }
 
     public LocalDate getAppointmentDate() {
@@ -109,8 +114,6 @@ public class Appointment {
         this.status = status;
     }
 
-    @PrePersist
-    @PreUpdate
     public void syncLegacyColumns() {
         this.legacyTimeSlot = this.timeSlot;
         this.legacySymptoms = this.symptoms;

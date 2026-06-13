@@ -1,7 +1,7 @@
 package com.appointmentsystem.repository;
 
 import com.appointmentsystem.model.NotificationLog;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface NotificationLogRepository extends JpaRepository<NotificationLog, Long> {
+public interface NotificationLogRepository extends MongoRepository<NotificationLog, Long> {
 }

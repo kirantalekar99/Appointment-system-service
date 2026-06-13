@@ -57,24 +57,36 @@ function setupHomeContent(session) {
   const heroText = document.getElementById("homeHeroText");
   const primaryHeroButton = document.getElementById("primaryHeroButton");
   const secondaryHeroButton = document.getElementById("secondaryHeroButton");
+  const thirdStatLabel = document.getElementById("accessStatLabel");
+
+  document.body.dataset.sessionRole = session?.role || "GUEST";
+  secondaryHeroButton.hidden = false;
 
   if (!session) {
     return;
   }
 
   if (session.role === "DOCTOR") {
-    heroTag.textContent = "Simple healthcare access for every doctor";
-    heroTitle.textContent = "Manage appointments and patient updates with ease.";
-    heroText.textContent = "This appointment system helps doctors review schedules, track patient bookings, and manage visit status without confusion. The interface is simple, readable, and designed to keep important health information easy to understand.";
-    primaryHeroButton.textContent = "Open Booking";
+    heroTag.textContent = "Doctor workspace";
+    heroTitle.textContent = "Review appointments and update visit status.";
+    heroText.textContent = "See your patient bookings in one place, update appointment progress, and keep your schedule clear without extra screens.";
+    primaryHeroButton.textContent = "View Appointments";
     primaryHeroButton.href = "book.html";
-    secondaryHeroButton.textContent = "View Profile";
-    secondaryHeroButton.href = "profile.html";
+    secondaryHeroButton.hidden = true;
+    if (thirdStatLabel) {
+      thirdStatLabel.textContent = "Appointment management";
+    }
     return;
   }
 
+  heroTag.textContent = "Patient workspace";
+  heroTitle.textContent = "Book appointments without confusion.";
+  heroText.textContent = "Choose a doctor, reserve a time slot, and manage your upcoming appointments from a simple patient dashboard.";
   primaryHeroButton.textContent = "Book Appointment";
   primaryHeroButton.href = "book.html";
   secondaryHeroButton.textContent = "View All Doctors";
   secondaryHeroButton.href = "doctors.html";
+  if (thirdStatLabel) {
+    thirdStatLabel.textContent = "Easy online access for patients";
+  }
 }

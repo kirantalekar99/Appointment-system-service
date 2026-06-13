@@ -14,7 +14,7 @@
     <artifactId>appointment-system</artifactId>
     <version>1.0.0</version>
     <name>appointment-system</name>
-    <description>Doctor appointment system with Spring Boot, MySQL, and a simple frontend</description>
+    <description>Doctor appointment system with Spring Boot, MongoDB, and a simple frontend</description>
 
     <properties>
         <java.version>21</java.version>
@@ -28,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -37,11 +37,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -1,42 +1,27 @@
 package com.appointmentsystem.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "notification_logs")
-public class NotificationLog {
+@Document(collection = "notification_logs")
+public class NotificationLog implements SequencedDocument {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String channel;
 
-    @Column(nullable = false)
     private String recipientGroup;
 
-    @Column(nullable = false)
     private String recipient;
 
-    @Column(nullable = false, length = 1000)
     private String message;
 
-    @Column(nullable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
-
-    @PrePersist
-    public void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
 
     public Long getId() {
         return id;

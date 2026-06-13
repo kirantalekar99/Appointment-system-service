@@ -24,6 +24,9 @@ async function loadProfile() {
     document.getElementById("profileTitle").textContent = "Patient profile";
     document.getElementById("profileSubtitle").textContent = "Update your patient account information here.";
     doctorFields.hidden = true;
+    doctorFields.querySelectorAll("input, textarea").forEach((field) => {
+      field.value = "";
+    });
   }
 }
 

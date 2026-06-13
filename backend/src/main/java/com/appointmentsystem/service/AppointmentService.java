@@ -52,7 +52,7 @@ public class AppointmentService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Appointment date must be today or later");
         }
 
-        if (appointmentRepository.existsByDoctor_IdAndAppointmentDateAndTimeSlot(
+        if (appointmentRepository.existsByDoctorIdAndAppointmentDateAndTimeSlot(
                 doctor.getId(), request.getAppointmentDate(), request.getTimeSlot())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "This time slot is already booked");
         }
@@ -92,14 +92,14 @@ public class AppointmentService {
     }
 
     public List<AppointmentResponse> getPatientAppointments(Long patientId) {
-        return appointmentRepository.findByPatient_IdOrderByAppointmentDateAsc(patientId)
+        return appointmentRepository.findByPatientIdOrderByAppointmentDateAsc(patientId)
                 .stream()
                 .map(this::mapAppointment)
                 .toList();
     }
 
     public List<AppointmentResponse> getDoctorAppointments(Long doctorId) {
-        return appointmentRepository.findByDoctor_IdOrderByAppointmentDateAsc(doctorId)
+        return appointmentRepository.findByDoctorIdOrderByAppointmentDateAsc(doctorId)
                 .stream()
                 .map(this::mapAppointment)
                 .toList();
@@ -151,7 +151,7 @@ public class AppointmentService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Time slot is required");
         }
 
-        if (appointmentRepository.existsByDoctor_IdAndAppointmentDateAndTimeSlot(
+        if (appointmentRepository.existsByDoctorIdAndAppointmentDateAndTimeSlot(
                 appointment.getDoctor().getId(), request.getAppointmentDate(), request.getTimeSlot().trim())
                 && (!appointment.getAppointmentDate().equals(request.getAppointmentDate())
                 || !appointment.getTimeSlot().equals(request.getTimeSlot().trim()))) {

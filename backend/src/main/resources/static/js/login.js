@@ -20,6 +20,7 @@ async function login(event) {
 
     setTimeout(() => {
       if (response.role === "ADMIN") {
+        rememberToastForNextPage();
         window.location.href = "admin.html";
         return;
       }

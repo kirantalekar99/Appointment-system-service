@@ -1,40 +1,30 @@
 package com.appointmentsystem.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "doctor_profiles")
-public class DoctorProfile {
+@Document(collection = "doctor_profiles")
+public class DoctorProfile implements SequencedDocument {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @Indexed(unique = true)
+    private Long userId;
+
+    @DBRef
     private User user;
 
-    @Column(nullable = false)
     private String specialization;
 
-    @Column(nullable = false)
     private Integer experience;
 
-    @Column(nullable = false, length = 600)
     private String bio;
 
-    @Column(nullable = false)
     private String availableDays;
 
-    @Column(nullable = false)
     private String availableTime;
 
     public Long getId() {
@@ -45,12 +35,21 @@ public class DoctorProfile {
         this.id = id;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+        this.userId = user == null ? null : user.getId();
     }
 
     public String getSpecialization() {

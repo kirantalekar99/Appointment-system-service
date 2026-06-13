@@ -1,12 +1,15 @@
 :root {
-  --brand: #1d6fa3;
-  --brand-dark: #154f74;
-  --accent: #e5f4fb;
+  --brand: #176b87;
+  --brand-dark: #0f4058;
+  --accent: #eef7fa;
+  --success: #138a5b;
+  --danger: #b42318;
   --text: #1c2430;
   --muted: #5d6b7a;
-  --border: #dce7ee;
-  --surface-soft: #f7fbfd;
-  --shadow: 0 20px 45px rgba(24, 74, 107, .12);
+  --border: #d7e0e7;
+  --surface: #ffffff;
+  --surface-soft: #f7fafc;
+  --shadow: 0 10px 24px rgba(15, 64, 88, 0.08);
 }
 
 * {
@@ -17,9 +20,7 @@ body {
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(29, 111, 163, 0.16), transparent 30%),
-    linear-gradient(180deg, #b1d4e2 0%, #b1d2e0a8 100%);
+  background: #f4f7fa;
 }
 
 a {
@@ -33,7 +34,7 @@ a {
 
 .page-container,
 .top-nav {
-  width: min(1120px, calc(100% - 32px));
+  width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
 }
 
@@ -41,9 +42,8 @@ a {
   position: sticky;
   top: 0;
   z-index: 20;
-  backdrop-filter: blur(16px);
-  background: rgba(255, 255, 255, 0.88);
-  border-bottom: 1px solid rgba(220, 231, 238, 0.9);
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
 }
 
 .top-nav {
@@ -51,26 +51,25 @@ a {
   justify-content: space-between;
   align-items: center;
   gap: 18px;
-  padding: 16px 0;
+  padding: 14px 0;
 }
 
 .logo-link {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   font-weight: 800;
   color: var(--brand-dark);
 }
 
 .logo-icon {
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   display: grid;
   place-items: center;
-  border-radius: 14px;
+  border-radius: 8px;
   color: white;
-  background: linear-gradient(135deg, var(--brand) 0%, #4eb8bf 100%);
-  box-shadow: var(--shadow);
+  background: var(--brand);
 }
 
 .menu-links {
@@ -83,10 +82,10 @@ a {
 }
 
 .menu-links a {
-  padding: 10px 14px;
-  border-radius: 999px;
+  padding: 8px 10px;
+  border-radius: 8px;
   color: var(--text);
-  transition: 0.2s ease;
+  transition: color 0.2s ease, background 0.2s ease;
 }
 
 .menu-links a:hover {
@@ -95,9 +94,8 @@ a {
 }
 
 .menu-links a.active {
-  color: var(--text) !important;
-  background: transparent !important;
-  box-shadow: none !important;
+  color: var(--brand-dark) !important;
+  background: var(--accent) !important;
 }
 
 .user-menu {
@@ -120,61 +118,76 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 42px;
+  min-height: 38px;
   font-weight: 700;
-  border-radius: 999px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  border-radius: 8px;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .login-link-btn {
-  padding: 10px 16px;
+  padding: 9px 14px;
   color: var(--brand-dark);
-  background: #c5ebce;
-  border: 1px solid rgba(29, 111, 163, 0.2);
-  box-shadow: 0 10px 22px rgba(24, 74, 107, 0.08);
+  background: #ffffff;
+  border: 1px solid var(--border);
 }
 
 .register-link-btn {
-  padding: 10px 18px;
+  padding: 9px 14px;
   color: white;
-  background: linear-gradient(135deg, #20bba6b6 0%, #35b7b587 100%);
-  box-shadow: 0 12px 26px rgba(32, 132, 187, 0.24);
+  background: var(--brand);
 }
 
 .admin-link-btn {
-  padding: 10px 18px;
+  padding: 9px 14px;
   color: #fff7ef;
-  border: 1px solid rgba(17, 25, 39, 0.15);
-  box-shadow: 0 14px 28px rgba(17, 25, 39, 0.28);
+  background: #263238;
+  border: 1px solid #263238;
 }
 
 .login-link-btn:hover,
 .register-link-btn:hover,
-.admin-link-btn:hover,
-.btn:hover {
-  transform: translateY(-1px);
+.admin-link-btn:hover {
+  background: var(--accent);
+  border-color: var(--brand);
+  color: var(--brand-dark);
 }
 
 .two-column-form {
   display: grid;
-  grid-template-columns: minmax(320px, 420px) 1fr;
+  grid-template-columns: minmax(320px, 390px) 1fr;
   gap: 24px;
   align-items: start;
-  padding: 44px 0 60px;
+  padding: 32px 0 56px;
 }
 
-.card,
-.side-box {
-  background: rgba(255, 255, 255, .96);
-  border: 1px solid rgba(220, 231, 238, .9);
-  border-radius: 24px;
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
   box-shadow: var(--shadow);
-  padding: 24px;
+  padding: 22px;
+}
+
+#bookingLeftCard {
+  position: sticky;
+  top: 92px;
+}
+
+#bookingLeftCard h2,
+.side-box h2 {
+  margin: 0 0 10px;
+  font-size: 1.55rem;
+  letter-spacing: 0;
+}
+
+#bookingMainText,
+#appointmentListText {
+  margin: 0 0 22px;
+  line-height: 1.55;
 }
 
 .side-box {
-  position: sticky;
-  top: 96px;
+  min-width: 0;
 }
 
 .form-fields {
@@ -191,37 +204,55 @@ a {
 label {
   display: block;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
+  color: #111827;
 }
 
 input,
 select,
 textarea {
   width: 100%;
-  padding: 13px 14px;
-  border-radius: 14px;
+  padding: 12px 13px;
+  border-radius: 8px;
   border: 1px solid var(--border);
   font: inherit;
   background: #fff;
 }
 
 textarea {
-  min-height: 120px;
+  min-height: 110px;
   resize: vertical;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-  outline: 2px solid rgba(29, 111, 163, .18);
+  outline: 3px solid rgba(23, 107, 135, 0.14);
   border-color: var(--brand);
+}
+
+#appointmentForm > button[type="submit"] {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--brand);
+  transition: background 0.2s ease;
+}
+
+#appointmentForm > button[type="submit"]:hover {
+  background: var(--brand-dark);
 }
 
 .message {
   display: none;
   margin-top: 14px;
   padding: 12px 14px;
-  border-radius: 14px;
+  border-radius: 8px;
   font-weight: 600;
 }
 
@@ -230,32 +261,42 @@ textarea:focus {
 }
 
 .message.success {
-  background: #ebfff7;
-  color: #1e8e63;
+  background: #eaf8f1;
+  color: var(--success);
 }
 
 .message.error {
-  background: #fff1f1;
-  color: #c14646;
+  background: #fff2f0;
+  color: var(--danger);
 }
 
 .appointment-list-area {
   display: grid;
-  gap: 18px;
+  gap: 14px;
+}
+
+.appointment-list-area > .card {
+  box-shadow: none;
+  padding: 20px;
+}
+
+.appointment-list-area h3 {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
 }
 
 .doctor-info-row {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
-  margin: 14px 0;
+  margin: 14px 0 12px;
 }
 
 .pill {
   display: inline-flex;
   align-items: center;
-  padding: 8px 12px;
-  border-radius: 999px;
+  padding: 7px 10px;
+  border-radius: 8px;
   background: var(--surface-soft);
   border: 1px solid var(--border);
   color: var(--brand-dark);
@@ -269,40 +310,48 @@ textarea:focus {
 
 .empty-box {
   text-align: center;
-  padding: 28px;
+  padding: 24px;
   border: 1px dashed var(--border);
-  border-radius: 20px;
+  border-radius: 8px;
   color: var(--muted);
-  background: rgba(255, 255, 255, .72);
+  background: #ffffff;
 }
 
 .doctor-action-row {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
-  margin-top: 16px;
+  margin-top: 14px;
 }
 
 .doctor-status-button {
   border: none;
-  border-radius: 16px;
-  padding: 13px 18px;
+  border-radius: 8px;
+  padding: 11px 14px;
   cursor: pointer;
   font-weight: 700;
   color: #fff;
-  background: linear-gradient(135deg, var(--brand) 0%, #3fa0c5 100%);
-  box-shadow: 0 12px 24px rgba(29, 111, 163, .22);
+  background: var(--brand);
 }
 
 .patient-cancel-button {
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 13px 18px;
+  border-radius: 8px;
+  padding: 11px 14px;
   cursor: pointer;
   font-weight: 700;
-  color: var(--brand-dark);
+  color: #334155;
   background: #fff;
   box-shadow: none;
+}
+
+.doctor-status-button:hover {
+  background: var(--brand-dark);
+}
+
+.patient-cancel-button:hover {
+  border-color: #b7c7d3;
+  background: var(--surface-soft);
 }
 
 .doctor-manage-panel {
@@ -316,8 +365,7 @@ textarea:focus {
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: rgba(17, 25, 39, .45);
-  backdrop-filter: blur(8px);
+  background: rgba(17, 25, 39, .42);
   z-index: 50;
 }
 
@@ -343,11 +391,10 @@ textarea:focus {
   justify-content: center;
   width: 42px;
   min-height: 42px;
-  border-radius: 999px;
+  border-radius: 8px;
   color: white;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--brand) 0%, #3fa0c5 100%);
-  box-shadow: 0 12px 24px rgba(29, 111, 163, .22);
+  background: var(--brand);
 }
 
 @media (max-width:900px) {
@@ -356,6 +403,10 @@ textarea:focus {
   }
 
   .side-box {
+    position: static;
+  }
+
+  #bookingLeftCard {
     position: static;
   }
 
@@ -372,6 +423,6 @@ textarea:focus {
 
   .card,
   .side-box {
-    padding: 20px;
+    padding: 18px;
   }
 }

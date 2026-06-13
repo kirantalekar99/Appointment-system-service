@@ -191,15 +191,19 @@ public class EmailService {
                       <div style="margin-top:6px;font-size:14px;opacity:0.92;">Healthcare communication update</div>
                     </div>
                     <div style="padding:32px;">
-                      <div style="font-size:16px;color:#5d6b7a;">Hello %s,</div>
-                      <h2 style="margin:14px 0 10px;font-size:28px;color:#154f74;">%s</h2>
-                      <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#445261;">%s</p>
-                      %s
+                      <div style="font-size:16px;color:#5d6b7a;">Hello {{recipientName}},</div>
+                      <h2 style="margin:14px 0 10px;font-size:28px;color:#154f74;">{{title}}</h2>
+                      <p style="margin:0 0 20px;font-size:16px;line-height:1.7;color:#445261;">{{subtitle}}</p>
+                      {{content}}
                       <p style="margin:24px 0 0;font-size:15px;line-height:1.7;color:#5d6b7a;">Thank you for using CareBridge.</p>
                     </div>
                   </div>
                 </div>
-                """.formatted(escapeHtml(recipientName), escapeHtml(title), escapeHtml(subtitle), content);
+                """
+                .replace("{{recipientName}}", escapeHtml(recipientName))
+                .replace("{{title}}", escapeHtml(title))
+                .replace("{{subtitle}}", escapeHtml(subtitle))
+                .replace("{{content}}", content);
     }
 
     private String buildDetailsBlock(String... rows) {

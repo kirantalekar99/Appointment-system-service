@@ -22,7 +22,6 @@ import com.appointmentsystem.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.LinkedHashMap;
@@ -82,7 +81,6 @@ public class AdminService {
         return uniqueDoctors.values().stream().toList();
     }
 
-    @Transactional
     public AdminAccountResponse updateAdminAccount(Long adminUserId, AdminAccountRequest request) {
         User admin = userRepository.findById(adminUserId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Admin user not found"));
@@ -108,7 +106,6 @@ public class AdminService {
         return mapAdmin(userRepository.save(admin));
     }
 
-    @Transactional
     public DoctorResponse addDoctor(AdminDoctorRequest request) {
         String email = inputValidationService.requireText(request.getEmail(), "Email");
         inputValidationService.validateEmail(email);
@@ -131,7 +128,6 @@ public class AdminService {
         return mapDoctor(doctorProfileRepository.save(profile));
     }
 
-    @Transactional
     public DoctorResponse updateDoctor(Long doctorId, AdminDoctorRequest request) {
         DoctorProfile profile = doctorProfileRepository.findById(doctorId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
@@ -162,11 +158,10 @@ public class AdminService {
         return mapDoctor(doctorProfileRepository.save(profile));
     }
 
-    @Transactional
     public void deleteDoctor(Long doctorId) {
         DoctorProfile profile = doctorProfileRepository.findById(doctorId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
-        List<Appointment> linkedAppointments = appointmentRepository.findByDoctor_Id(doctorId);
+        List<Appointment> linkedAppointments = appointmentRepository.findByDoctorId(doctorId);
         if (!linkedAppointments.isEmpty()) {
             appointmentRepository.deleteAll(linkedAppointments);
         }
@@ -182,7 +177,6 @@ public class AdminService {
                 .toList();
     }
 
-    @Transactional
     public AppointmentResponse updateAppointmentStatus(Long appointmentId, AdminAppointmentStatusRequest request) {
         if (request.getStatus() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Appointment status is required");
@@ -194,7 +188,6 @@ public class AdminService {
         return mapAppointment(appointmentRepository.save(appointment));
     }
 
-    @Transactional
     public AppointmentResponse cancelAppointment(Long appointmentId) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found"));
