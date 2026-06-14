@@ -1,10 +1,6 @@
 let editingDoctorId = null;
 let adminDoctorsCache = [];
 
-function showPopup(message) {
-  window.alert(message);
-}
-
 function setFieldText(root, selector, value) {
   const element = root.querySelector(selector);
   if (element) {
@@ -23,6 +19,7 @@ function doctorFormPayload() {
     name: document.getElementById("doctorFullName").value.trim(),
     email: document.getElementById("doctorEmailAddress").value.trim(),
     phone: document.getElementById("doctorPhoneNumber").value.trim(),
+    password: document.getElementById("doctorPassword").value,
     specialization: document.getElementById("doctorSpecialty").value.trim(),
     experience: Number(document.getElementById("doctorYearsExperience").value),
     availableDays: document.getElementById("doctorWorkDays").value.trim(),
@@ -47,6 +44,14 @@ function validateDoctorPayload(payload, isEdit) {
     return "Doctor experience must be at least 1 year.";
   }
 
+  if (!isEdit && !payload.password) {
+    return "Please enter a doctor login password.";
+  }
+
+  if (payload.password && !validatePassword(payload.password)) {
+    return "Doctor password must be at least 8 characters and include 1 number and 1 special character.";
+  }
+
   return null;
 }
 
@@ -57,6 +62,8 @@ function resetDoctorForm() {
   document.getElementById("cancelDoctorButton").textContent = "Cancel";
   document.getElementById("doctorFormTitle").textContent = "Add New Doctor";
   document.getElementById("doctorFormText").textContent = "Fill the form to create a new doctor profile.";
+  document.getElementById("doctorPassword").required = true;
+  document.getElementById("doctorPassword").placeholder = "Create doctor login password";
 }
 
 function openDoctorModal(mode) {
@@ -131,6 +138,9 @@ function fillDoctorForm(doctor) {
   document.getElementById("doctorYearsExperience").value = doctor.experience;
   document.getElementById("doctorWorkDays").value = doctor.availableDays;
   document.getElementById("doctorWorkTime").value = doctor.availableTime;
+  document.getElementById("doctorPassword").value = "";
+  document.getElementById("doctorPassword").required = false;
+  document.getElementById("doctorPassword").placeholder = "Leave blank to keep current password";
   document.getElementById("doctorFormTitle").textContent = "Edit Doctor";
   document.getElementById("doctorFormText").textContent = "Update the selected doctor profile details.";
   document.getElementById("saveDoctorButton").textContent = "Update Doctor";
@@ -170,7 +180,6 @@ async function handleDoctorListClick(event) {
     try {
       await request(`/admin/doctors/${doctor.id}`, { method: "DELETE" });
       showMessage("doctorStatusMessage", "Doctor Information Deleted", "success");
-      showPopup("Doctor Deleted");
       await refreshAdminData();
     } catch (error) {
       showMessage("doctorStatusMessage", error.message, "error");
@@ -211,7 +220,6 @@ async function loadAppointments() {
           body: JSON.stringify({ status })
         });
         showMessage("appointmentStatusMessage", "Appointment status updated.", "success");
-        showPopup("Appointment status updated");
         await refreshAdminData();
       } catch (error) {
         showMessage("appointmentStatusMessage", error.message, "error");
@@ -222,7 +230,6 @@ async function loadAppointments() {
       try {
         await request(`/admin/appointments/${appointment.id}/cancel`, { method: "PATCH" });
         showMessage("appointmentStatusMessage", "Appointment cancelled.", "success");
-        showPopup("Appointment Cancelled");
         await refreshAdminData();
       } catch (error) {
         showMessage("appointmentStatusMessage", error.message, "error");
@@ -273,7 +280,6 @@ async function handleNotificationHistoryClick(event) {
   try {
     await request(`/admin/notifications/${notificationId}`, { method: "DELETE" });
     showMessage("historyStatusMessage", "Notification Deleted", "success");
-    showPopup("Notification Deleted");
     await loadNotifications();
   } catch (error) {
     showMessage("historyStatusMessage", error.message, "error");
@@ -300,14 +306,12 @@ async function submitDoctorForm(event) {
         body: JSON.stringify(payload)
       });
       showMessage("doctorStatusMessage", "Doctor Information Updated", "success");
-      showPopup("Doctor Information Updated");
     } else {
       await request("/admin/doctors", {
         method: "POST",
         body: JSON.stringify(payload)
       });
       showMessage("doctorStatusMessage", "Doctor Information Added", "success");
-      showPopup("Doctor Information Added");
     }
 
     resetDoctorForm();
@@ -339,7 +343,6 @@ async function submitNotification(event) {
     });
     document.getElementById("notificationSendForm").reset();
     showMessage("notificationStatusMessage", "Notification Updated", "success");
-    showPopup("Notification Sent");
     await loadNotifications();
   } catch (error) {
     showMessage("notificationStatusMessage", error.message, "error");
@@ -376,7 +379,6 @@ async function submitAdminAccountForm(event) {
     document.getElementById("currentAdminEmail").textContent = updatedAdmin.email;
     document.getElementById("adminLoginPassword").value = "";
     showMessage("adminAccountMessage", "Admin login details updated", "success");
-    showPopup("Admin login detail updated");
     closeAdminPasswordPopup();
   } catch (error) {
     showMessage("adminAccountMessage", error.message, "error");

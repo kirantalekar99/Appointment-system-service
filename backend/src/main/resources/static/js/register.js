@@ -88,15 +88,25 @@ function closeRegisterOtpPopup() {
 }
 
 function toggleDoctorFields() {
-  const role = document.getElementById("accountRole").value;
+  const role = document.getElementById("accountRole");
   const doctorFields = document.getElementById("doctorExtraFields");
-  doctorFields.style.display = role === "DOCTOR" ? "grid" : "none";
+  if (!role || !doctorFields) {
+    return;
+  }
+
+  doctorFields.style.display = role.value === "DOCTOR" ? "grid" : "none";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const roleSelect = document.getElementById("accountRole");
+  const registerForm = document.getElementById("registerForm");
+  if (!roleSelect || !registerForm) {
+    return;
+  }
+
   toggleDoctorFields();
-  document.getElementById("accountRole").addEventListener("change", toggleDoctorFields);
-  document.getElementById("registerForm").addEventListener("submit", register);
+  roleSelect.addEventListener("change", toggleDoctorFields);
+  registerForm.addEventListener("submit", register);
   document.getElementById("registerOtpForm")?.addEventListener("submit", verifyRegisterOtp);
   document.getElementById("closeRegisterOtpButton")?.addEventListener("click", closeRegisterOtpPopup);
   document.getElementById("cancelRegisterOtpButton")?.addEventListener("click", closeRegisterOtpPopup);

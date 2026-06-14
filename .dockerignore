@@ -9,3 +9,6 @@ backend/.m2
 .env
 *.env
 *.log
+backend/src/main/resources/application.properties
+backend/src/main/resources/application-local.properties
+backend/src/main/resources/application-secret.properties

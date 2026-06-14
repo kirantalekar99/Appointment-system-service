@@ -67,7 +67,7 @@ public class AuthService {
     private AuthResponse completeRegistration(RegisterRequest request) {
         validateRegistrationRequest(request);
 
-        String email = request.getEmail().trim();
+        String email = request.getEmail().trim().toLowerCase();
         String phone = request.getPhone().trim();
 
         User user = new User();
@@ -102,11 +102,13 @@ public class AuthService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Admin accounts can only be created by the system");
         }
 
-        String email = inputValidationService.requireText(request.getEmail(), "Email");
+        String email = inputValidationService.requireText(request.getEmail(), "Email").toLowerCase();
         inputValidationService.validateEmail(email);
         String phone = inputValidationService.requireText(request.getPhone(), "Phone");
         inputValidationService.validatePhone(phone);
         inputValidationService.validatePassword(request.getPassword());
+        request.setEmail(email);
+        request.setPhone(phone.trim());
 
         if (userRepository.findByEmail(email).isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email is already registered");
@@ -160,7 +162,7 @@ public class AuthService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-        String email = inputValidationService.requireText(request.getEmail(), "Email");
+        String email = inputValidationService.requireText(request.getEmail(), "Email").toLowerCase();
         inputValidationService.validateEmail(email);
         String phone = inputValidationService.requireText(request.getPhone(), "Phone");
         inputValidationService.validatePhone(phone);
@@ -225,7 +227,7 @@ public class AuthService {
         }
 
         inputValidationService.validateEmail(trimmedIdentifier);
-        return userRepository.findByEmail(trimmedIdentifier);
+        return userRepository.findByEmail(trimmedIdentifier.toLowerCase());
     }
 
     private ProfileResponse mapProfile(User user, DoctorProfile doctorProfile) {

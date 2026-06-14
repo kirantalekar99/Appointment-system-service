@@ -88,7 +88,7 @@ public class AdminService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only admin can access this feature");
         }
 
-        String email = inputValidationService.requireText(request.getEmail(), "Email");
+        String email = inputValidationService.requireText(request.getEmail(), "Email").toLowerCase();
         inputValidationService.validateEmail(email);
 
         userRepository.findByEmail(email)
@@ -107,7 +107,7 @@ public class AdminService {
     }
 
     public DoctorResponse addDoctor(AdminDoctorRequest request) {
-        String email = inputValidationService.requireText(request.getEmail(), "Email");
+        String email = inputValidationService.requireText(request.getEmail(), "Email").toLowerCase();
         inputValidationService.validateEmail(email);
         inputValidationService.validatePhone(request.getPhone());
         if (userRepository.findByEmail(email).isPresent()) {
@@ -117,7 +117,7 @@ public class AdminService {
         User user = new User();
         user.setName(inputValidationService.requireText(request.getName(), "Name"));
         user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(defaultDoctorPassword(request.getPassword())));
+        user.setPassword(passwordEncoder.encode(requireDoctorPassword(request.getPassword())));
         user.setPhone(request.getPhone().trim());
         user.setRole(Role.DOCTOR);
         User savedUser = userRepository.save(user);
@@ -132,7 +132,7 @@ public class AdminService {
         DoctorProfile profile = doctorProfileRepository.findById(doctorId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
 
-        String email = inputValidationService.requireText(request.getEmail(), "Email");
+        String email = inputValidationService.requireText(request.getEmail(), "Email").toLowerCase();
         inputValidationService.validateEmail(email);
         inputValidationService.validatePhone(request.getPhone());
 
@@ -232,9 +232,9 @@ public class AdminService {
         profile.setAvailableTime(inputValidationService.requireText(request.getAvailableTime(), "Available time"));
     }
 
-    private String defaultDoctorPassword(String password) {
+    private String requireDoctorPassword(String password) {
         if (password == null || password.isBlank()) {
-            return "";
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Doctor login password is required");
         }
         inputValidationService.validatePassword(password);
         return password;

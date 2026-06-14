@@ -317,13 +317,7 @@ function ensureAppFooter() {
       </div>
 
       <div class="footer-bottom">
-        <span>© 2026 CareBridge. All Rights Reserved.</span>
-        <nav class="footer-bottom-links" aria-label="Footer quick links">
-          <a href="contact.html">Contact</a>
-          <a href="index.html">Privacy Policy</a>
-          <a href="index.html">Terms</a>
-          <span>Serving patients across Baramati and nearby cities.</span>
-        </nav>
+        <span>&copy; 2026 CareBridge. All Rights Reserved.</span>
       </div>
     </div>
   `;
@@ -405,8 +399,7 @@ function injectFooterStyles() {
     .footer-contact-list span,
     .footer-link-list a,
     .footer-help span,
-    .footer-bottom,
-    .footer-bottom a {
+    .footer-bottom {
       color: #d9e4eb;
       line-height: 1.65;
       font-size: 0.96rem;
@@ -444,29 +437,18 @@ function injectFooterStyles() {
     }
 
     .footer-link-list a:hover,
-    .footer-bottom a:hover {
+    .footer-logo:hover {
       color: #ffffff;
     }
 
     .footer-bottom {
       display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
+      justify-content: center;
       margin-top: 34px;
       padding-top: 20px;
       border-top: 1px solid rgba(255, 255, 255, 0.14);
-    }
-
-    .footer-bottom-links {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .footer-bottom a {
       font-weight: 700;
+      text-align: center;
     }
 
     @media (max-width: 980px) {
@@ -486,9 +468,6 @@ function injectFooterStyles() {
         gap: 28px;
       }
 
-      .footer-bottom {
-        flex-direction: column;
-      }
     }
   `;
   document.head.appendChild(style);
@@ -589,7 +568,7 @@ function enforceSessionNavigation() {
   const session = getSession();
   const currentPage = window.location.pathname.split("/").pop() || "index.html";
   const adminPages = new Set(["admin.html", "admin-login.html"]);
-  const authPages = new Set(["user-login.html", "register.html", "login.html"]);
+  const authPages = new Set(["user-login.html"]);
   const publicPages = new Set([...authPages, "admin-login.html", "contact.html"]);
 
   if (!session && !publicPages.has(currentPage)) {

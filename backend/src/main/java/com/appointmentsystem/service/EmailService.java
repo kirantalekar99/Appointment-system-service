@@ -124,10 +124,24 @@ public class EmailService {
                 ));
     }
 
+    public void sendSupportRequestEmail(String name, String email, String message) {
+        sendEmail(fromEmail, "New CareBridge support request",
+                buildEmailTemplate(
+                        "New support request received",
+                        "A user submitted a support message from the CareBridge contact page.",
+                        buildDetailsBlock(
+                                detailRow("Name", name),
+                                detailRow("Email", email),
+                                detailRow("Message", message)
+                        ),
+                        "CareBridge Team"
+                ));
+    }
+
     private void sendEmail(String to, String subject, String body) {
         if (fromEmail.isBlank() || brevoApiKey.isBlank()) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Email service is not configured. Please set BREVO_API_KEY and MAIL_FROM.");
+                    "Email service is not configured. Please set BREVO_API_KEY and MAIL_FROM_EMAIL.");
         }
 
         try {

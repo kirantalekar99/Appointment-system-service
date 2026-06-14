@@ -47,7 +47,9 @@ public class PortFallbackConfiguration implements WebServerFactoryCustomizer<Con
     }
 
     private boolean isExplicitPortOverridePresent() {
-        return hasText(System.getenv("SERVER_PORT")) || hasText(System.getProperty("server.port"));
+        return hasText(System.getenv("PORT"))
+                || hasText(System.getenv("SERVER_PORT"))
+                || hasText(System.getProperty("server.port"));
     }
 
     private boolean hasText(String value) {

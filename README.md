@@ -40,6 +40,12 @@ APP_MAIL_FROM=your verified sender email
 APP_MAIL_SENDER_NAME=CareBridge
 MAIL_BREVO_BASE_URL=https://api.brevo.com
 APP_OTP_EXPIRY_MINUTES=10
+APP_ADMIN_EMAIL=your admin login email
+APP_ADMIN_PASSWORD=your admin login password
+APP_ADMIN_NAME=CareBridge Admin
+APP_ADMIN_PHONE=9999999999
 ```
 
 MongoDB Atlas must allow Render connections. For first testing, add `0.0.0.0/0` in Atlas Network Access.
+
+Only the configured admin account is seeded automatically. Doctors and patients are created through the application.

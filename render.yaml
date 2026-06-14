@@ -13,6 +13,8 @@ services:
         value: 10000
       - key: SERVER_FORWARD_HEADERS_STRATEGY
         value: framework
+      - key: SPRING_PROFILES_ACTIVE
+        value: render
       - key: SPRING_DATA_MONGODB_URI
         sync: false
       - key: SPRING_DATA_MONGODB_DATABASE
@@ -33,3 +35,11 @@ services:
         value: https://api.brevo.com
       - key: APP_OTP_EXPIRY_MINUTES
         value: 10
+      - key: APP_ADMIN_EMAIL
+        sync: false
+      - key: APP_ADMIN_PASSWORD
+        sync: false
+      - key: APP_ADMIN_NAME
+        value: CareBridge Admin
+      - key: APP_ADMIN_PHONE
+        value: 9999999999

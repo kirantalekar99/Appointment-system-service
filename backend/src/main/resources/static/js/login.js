@@ -2,7 +2,8 @@ async function login(event) {
   event.preventDefault();
 
   const identifier = document.getElementById("loginIdentifier").value.trim();
-  const password = document.getElementById("password").value;
+  const passwordInput = document.getElementById("loginPassword") || document.getElementById("password");
+  const password = passwordInput.value;
 
   if (!identifier) {
     showMessage("loginStatus", "Please enter your registered email or mobile number.", "error");
@@ -73,23 +74,28 @@ async function submitForgotPassword(event) {
   }
 }
 
-function setUserLoginMode(mode) {
-  const title = document.getElementById("loginPageTitle");
-  const subtitle = document.getElementById("loginPageText");
-  const patientButton = document.getElementById("patientLoginButton");
-  const doctorButton = document.getElementById("doctorLoginButton");
+function clearAuthMessages() {
+  ["loginStatus", "registerStatus"].forEach((id) => {
+    const node = document.getElementById(id);
+    if (!node) {
+      return;
+    }
 
-  if (!title || !subtitle || !patientButton || !doctorButton) {
-    return;
-  }
+    node.className = "message";
+    node.textContent = "";
+  });
+}
 
-  const isDoctor = mode === "DOCTOR";
-  title.textContent = isDoctor ? "Doctor Login" : "Patient Login";
-  subtitle.textContent = isDoctor
-    ? "Doctors can sign in here to access appointments and account details."
-    : "Patients can sign in here to book and manage appointments.";
-  patientButton.classList.toggle("active", !isDoctor);
-  doctorButton.classList.toggle("active", isDoctor);
+function showLoginPanel() {
+  document.getElementById("loginPanel")?.removeAttribute("hidden");
+  document.getElementById("registerPanel")?.setAttribute("hidden", "");
+  clearAuthMessages();
+}
+
+function showRegisterPanel() {
+  document.getElementById("registerPanel")?.removeAttribute("hidden");
+  document.getElementById("loginPanel")?.setAttribute("hidden", "");
+  clearAuthMessages();
 }
 
 function openForgotPasswordPopup() {
@@ -113,9 +119,9 @@ function closeForgotPasswordPopup() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("patientLoginButton")?.addEventListener("click", () => setUserLoginMode("PATIENT"));
-  document.getElementById("doctorLoginButton")?.addEventListener("click", () => setUserLoginMode("DOCTOR"));
-  document.getElementById("loginForm").addEventListener("submit", login);
+  document.getElementById("loginForm")?.addEventListener("submit", login);
+  document.getElementById("openRegisterPanelButton")?.addEventListener("click", showRegisterPanel);
+  document.getElementById("backToLoginButton")?.addEventListener("click", showLoginPanel);
   document.getElementById("forgotPasswordLink")?.addEventListener("click", (event) => {
     event.preventDefault();
     openForgotPasswordPopup();
@@ -123,5 +129,4 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("closeForgotPasswordButton")?.addEventListener("click", closeForgotPasswordPopup);
   document.getElementById("cancelForgotPasswordButton")?.addEventListener("click", closeForgotPasswordPopup);
   document.getElementById("forgotPasswordForm")?.addEventListener("submit", submitForgotPassword);
-  setUserLoginMode("PATIENT");
 });

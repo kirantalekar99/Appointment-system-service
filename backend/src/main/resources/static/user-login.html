@@ -5,7 +5,381 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>User Login</title>
-  <link rel="stylesheet" href="css/user-login.css?v=20260613-1" />
+  <style>
+:root {
+  --brand: #3478f6;
+  --brand-dark: #1f5edb;
+  --accent: #eef5ff;
+  --text: #242734;
+  --muted: #6d7481;
+  --border: #dde3eb;
+  --surface: #ffffff;
+  --success: #15865c;
+  --danger: #c14646;
+  --shadow: 0 12px 34px rgba(23, 34, 54, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text);
+  background: #f7f8fb;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+}
+
+.page-container,
+.top-nav {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.top-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 0;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  color: #0f4058;
+}
+
+.logo-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: #ffffff;
+  background: #176b87;
+}
+
+.menu-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.menu-links a {
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: var(--text);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.menu-links a:hover,
+.menu-links a.active {
+  color: #0f4058;
+  background: #eef7fa;
+}
+
+.user-menu {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.user-label {
+  font-size: 0.92rem;
+  color: #0f4058;
+  font-weight: 700;
+}
+
+.login-link-btn,
+.register-link-btn,
+.admin-link-btn,
+.profile-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.login-link-btn {
+  color: #0f4058;
+  background: #dff7e8;
+  border: 1px solid #bfe7ce;
+}
+
+.register-link-btn,
+.admin-link-btn,
+.profile-link-btn {
+  color: #ffffff;
+  background: #176b87;
+  border: 1px solid #176b87;
+}
+
+.profile-link-btn {
+  width: 40px;
+  padding: 0;
+}
+
+.auth-page-center {
+  min-height: calc(100vh - 112px);
+  display: grid;
+  place-items: center;
+  padding: 28px 0 42px;
+}
+
+.auth-form-box,
+.user-login-card {
+  width: min(420px, calc(100% - 24px));
+  padding: 30px 36px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.auth-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.user-login-card h2 {
+  margin: 0;
+  font-size: 1.72rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.form-fields {
+  display: grid;
+  gap: 14px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font: inherit;
+  background: #ffffff;
+}
+
+textarea {
+  min-height: 82px;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid rgba(52, 120, 246, 0.14);
+  border-color: var(--brand);
+}
+
+button {
+  min-height: 42px;
+  border: 1px solid var(--brand);
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--brand);
+}
+
+button:hover {
+  background: var(--brand-dark);
+  border-color: var(--brand-dark);
+}
+
+.forgot-password-link {
+  justify-self: end;
+  color: var(--brand);
+  font-weight: 700;
+  font-size: 0.84rem;
+}
+
+.forgot-password-link:hover,
+.auth-text-button:hover {
+  text-decoration: underline;
+}
+
+.auth-switch-text {
+  margin: 0;
+  color: #8a93a1;
+  text-align: center;
+  font-size: 0.88rem;
+}
+
+.auth-text-button {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--brand);
+  background: transparent;
+  box-shadow: none;
+  font: inherit;
+  font-weight: 700;
+}
+
+.auth-text-button:hover {
+  color: var(--brand-dark);
+  background: transparent;
+}
+
+.message {
+  display: none;
+  margin-top: 0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.message.show {
+  display: block;
+}
+
+.message.success {
+  background: #e9f8f0;
+  color: var(--success);
+}
+
+.message.error {
+  background: #fff1f1;
+  color: var(--danger);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.popup-backdrop {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(17, 25, 39, 0.42);
+  z-index: 50;
+}
+
+.popup-backdrop.show {
+  display: flex;
+}
+
+.popup-card {
+  width: min(500px, calc(100% - 24px));
+}
+
+.popup-card h3 {
+  margin: 0;
+}
+
+.popup-top-row,
+.popup-button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.popup-top-row {
+  margin-bottom: 16px;
+}
+
+.popup-button-row {
+  margin-top: 4px;
+}
+
+.small-action-button {
+  color: #0f4058;
+  background: #ffffff;
+  border: 1px solid var(--border);
+}
+
+.small-action-button:hover {
+  color: #0f4058;
+  background: #eef7fa;
+  border-color: #bfd7e2;
+}
+
+@media (max-width: 900px) {
+  .top-nav {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .menu-links {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .page-container,
+  .top-nav {
+    width: min(100% - 22px, 1180px);
+  }
+
+  .auth-form-box,
+  .user-login-card {
+    width: 100%;
+    padding: 22px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+  </style>
 </head>
 
 <body>
@@ -28,34 +402,87 @@
 
     <main class="page-container auth-page-center">
       <section class="card auth-form-box user-login-card">
-        <h2 id="loginPageTitle">Patient Login</h2>
-        <p id="loginPageText" class="muted">
-          Patients can sign in here to book and manage appointments.
-        </p>
-        <div class="login-type-buttons user-type-buttons">
-          <button type="button" id="patientLoginButton" class="type-button active">
-            Patient Login
-          </button>
-          <button type="button" id="doctorLoginButton" class="type-button">
-            Doctor Login
-          </button>
+        <div id="loginPanel" class="auth-panel">
+          <h2 id="loginPageTitle">Login</h2>
+          <form id="loginForm" class="form-fields">
+            <div>
+              <label for="loginIdentifier">Email or mobile number</label>
+              <input id="loginIdentifier" placeholder="Email or mobile number" required />
+            </div>
+            <div>
+              <label for="loginPassword">Password</label>
+              <input type="password" id="loginPassword" placeholder="Password" required />
+            </div>
+            <a href="#" id="forgotPasswordLink" class="forgot-password-link">Forgot password?</a>
+            <button type="submit" id="loginButton">Sign in</button>
+          </form>
+          <div id="loginStatus" class="message"></div>
+          <p class="auth-switch-text">
+            Don't have an account?
+            <button type="button" id="openRegisterPanelButton" class="auth-text-button">Sign up</button>
+          </p>
         </div>
-        <form id="loginForm" class="form-fields">
-          <div>
-            <label for="loginIdentifier">Email or mobile number</label>
-            <input id="loginIdentifier" placeholder="Enter email or mobile number" required />
-          </div>
-          <div>
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password" required />
-          </div>
-          <a href="#" id="forgotPasswordLink" class="forgot-password-link">Forgot Password?</a>
-          <div class="login-action-row">
-            <button type="submit" id="loginButton">Login</button>
-            <a href="register.html" class="create-account-link-btn">Create Account</a>
-          </div>
-        </form>
-        <div id="loginStatus" class="message"></div>
+
+        <div id="registerPanel" class="auth-panel" hidden>
+          <h2>Create account</h2>
+          <form id="registerForm" class="form-fields">
+            <div class="form-row">
+              <div>
+                <label for="name">Full name</label>
+                <input id="name" placeholder="Your name" required />
+              </div>
+              <div>
+                <label for="phone">Phone number</label>
+                <input id="phone" placeholder="10 digit mobile number" maxlength="10" inputmode="numeric" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="you@example.com" required />
+              </div>
+              <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Minimum 8 characters" required />
+              </div>
+            </div>
+            <div>
+              <label for="accountRole">Role</label>
+              <select id="accountRole">
+                <option value="PATIENT">Patient</option>
+                <option value="DOCTOR">Doctor</option>
+              </select>
+            </div>
+
+            <div id="doctorExtraFields" class="form-fields">
+              <div class="form-row">
+                <div>
+                  <label for="doctorSpecialtyInput">Specialization</label>
+                  <input id="doctorSpecialtyInput" placeholder="Example: Cardiologist" />
+                </div>
+                <div>
+                  <label for="doctorExperienceInput">Experience</label>
+                  <input type="number" min="1" id="doctorExperienceInput" placeholder="Years" />
+                </div>
+              </div>
+              <div>
+                <label for="doctorAvailableDaysInput">Available days</label>
+                <input id="doctorAvailableDaysInput" placeholder="Example: Mon, Wed, Fri" />
+              </div>
+              <div>
+                <label for="doctorBioInput">Short profile</label>
+                <textarea id="doctorBioInput" placeholder="Write a short description"></textarea>
+              </div>
+            </div>
+
+            <button type="submit">Sign up</button>
+          </form>
+          <div id="registerStatus" class="message"></div>
+          <p class="auth-switch-text">
+            Already have an account?
+            <button type="button" id="backToLoginButton" class="auth-text-button">Sign in</button>
+          </p>
+        </div>
       </section>
     </main>
   </div>
@@ -92,8 +519,36 @@
     </section>
   </div>
 
-  <script src="js/api.js?v=20260613-4"></script>
-  <script src="js/login.js?v=20260408-1"></script>
+  <div id="registerOtpPopup" class="popup-backdrop">
+    <section class="auth-form-box popup-card">
+      <div class="popup-top-row">
+        <div>
+          <h3>Email OTP Verification</h3>
+          <p class="muted">Enter the OTP received on your email to complete registration.</p>
+        </div>
+        <button type="button" id="closeRegisterOtpButton" class="small-action-button">Close</button>
+      </div>
+      <form id="registerOtpForm" class="form-fields">
+        <div>
+          <label for="registerOtpEmail">Email</label>
+          <input id="registerOtpEmail" readonly />
+        </div>
+        <div>
+          <label for="registerOtpCode">OTP</label>
+          <input id="registerOtpCode" placeholder="Enter 6-digit OTP" maxlength="6" required />
+        </div>
+        <div class="popup-button-row">
+          <button type="submit">Verify OTP</button>
+          <button type="button" id="cancelRegisterOtpButton" class="small-action-button">Cancel</button>
+        </div>
+      </form>
+      <div id="registerOtpStatus" class="message"></div>
+    </section>
+  </div>
+
+  <script src="js/api.js?v=20260614-2"></script>
+  <script src="js/login.js?v=20260614-3"></script>
+  <script src="js/register.js?v=20260614-2"></script>
 </body>
 
 </html>
