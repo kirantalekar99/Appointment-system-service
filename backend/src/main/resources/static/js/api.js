@@ -290,7 +290,6 @@ function ensureAppFooter() {
           <nav class="footer-link-list" aria-label="Footer services">
             <a href="doctors.html">Find doctors</a>
             <a href="book.html">Book appointment</a>
-            <a href="profile.html">Patient profile</a>
             <a href="user-login.html">Patient login</a>
             <a href="user-login.html">Doctor login</a>
           </nav>
@@ -301,7 +300,6 @@ function ensureAppFooter() {
           <div class="footer-contact-list">
             <span>+91 9158852129</span>
             <span>kirantalekar444@gmail.com</span>
-            <span>Baramati, Maharashtra</span>
             <span>Mon - Sun, 8:00 AM - 9:00 PM</span>
           </div>
         </section>

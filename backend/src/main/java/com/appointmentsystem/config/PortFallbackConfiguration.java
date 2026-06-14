@@ -14,7 +14,7 @@ import java.net.ServerSocket;
 public class PortFallbackConfiguration implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
 
     private static final Logger log = LoggerFactory.getLogger(PortFallbackConfiguration.class);
-    private static final int DEFAULT_PORT = 9090;
+    private static final int DEFAULT_PORT = 1010;
     private static final int MAX_FALLBACK_PORT = 9190;
 
     private final Environment environment;
@@ -48,7 +48,6 @@ public class PortFallbackConfiguration implements WebServerFactoryCustomizer<Con
 
     private boolean isExplicitPortOverridePresent() {
         return hasText(System.getenv("PORT"))
-                || hasText(System.getenv("SERVER_PORT"))
                 || hasText(System.getProperty("server.port"));
     }
 
